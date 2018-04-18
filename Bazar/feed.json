@@ -1,0 +1,28 @@
+{
+  "shirts": [
+    {
+      "name": "brusinha top",
+      "img": "assets/img/brusinha.png"
+    },
+    {
+      "name": "alien",
+      "img": "assets/img/alien.png"
+    },
+    {
+      "name": "lalala",
+      "img": "assets/img/lalala.png"
+    },
+    {
+      "name": "yellow",
+      "img": "assets/img/yellow.png"
+    },
+    {
+      "name": "stripes",
+      "img": "assets/img/stripes.png"
+    },
+    {
+      "name": "yellow two",
+      "img": "assets/img/yellow2.png"
+    }
+  ]
+}
