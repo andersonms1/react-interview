@@ -1,28 +1,34 @@
 {
   "shirts": [
     {
+      "id": 1,
       "name": "brusinha top",
       "img": "assets/img/brusinha.png"
     },
     {
+      "id": 2,
       "name": "alien",
       "img": "assets/img/alien.png"
     },
     {
+      "id": 3,
       "name": "lalala",
       "img": "assets/img/lalala.png"
     },
     {
+      "id": 4,
       "name": "yellow",
       "img": "assets/img/yellow.png"
     },
     {
+      "id": 5,
       "name": "stripes",
       "img": "assets/img/stripes.png"
     },
     {
+      "id": 6,
       "name": "yellow two",
       "img": "assets/img/yellow2.png"
-    }
+    },
   ]
 }
