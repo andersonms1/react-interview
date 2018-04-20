@@ -1,5 +1,18 @@
 import React from 'react';
-import { Alert, Platform, StyleSheet, Text, View, Image, FlatList, List, ListItem, ActivityIndicator, ImageBackground, ScrollView } from 'react-native';
+import { 
+  Alert, 
+  Platform, 
+  StyleSheet, 
+  Text, 
+  View, 
+  Image, 
+  FlatList, 
+  List, 
+  ListItem, 
+  ActivityIndicator, 
+  ImageBackground, 
+  ScrollView,
+  TouchableOpacity } from 'react-native';
 import BrusinhasList from './feed.json';
 import Tabbar from 'react-native-tabbar-bottom'
 
@@ -9,7 +22,7 @@ export default class exampleTabs extends React.Component {
     super(props)
 
     this.loader(v => this.setState({ loaded: true }));
-   
+
 
     this.state = {
       page: "HomeScreen",
@@ -99,7 +112,21 @@ export default class exampleTabs extends React.Component {
         {this.state.page === "SearchScreen" &&
 
           <View style={{ flex: 1 }}>
+
+            {/* <View>
+                <TouchableOpacity onPress={() => this.setState({ open: !this.state.open })}>
+                  <Text>Toggle Menu</Text>
+                </TouchableOpacity>
+                <Expand value={this.state.open}>
+                  <Text>
+                    Some very very very very very
+                  </Text>
+                </Expand>
+              </View> */}
+
+
             {this.state.loaded ? (
+
               <FlatList
                 style={{ marginBottom: 150 }}
                 data={BrusinhasList.shirts}
@@ -108,16 +135,26 @@ export default class exampleTabs extends React.Component {
                 keyExtractor={item => item.name}
                 renderItem={({ item }) =>
                   <View>
-                    <Image
-                      style={styles.imagePreview} source={this.photoPicker(item.name)}
-                    />
+
+                    <ImageBackground style={styles.scrollImage} source={this.photoPicker(item.name)}>
+                      <Text style={styles.textImage} onPress={this.GetFlatListItem.bind(this, item.name)}> {item.name} </Text>
+                    </ImageBackground>
                   </View>
                 }
 
 
               />
+
+              
+
+
+
             ) : <ActivityIndicator style={styles.screenLoader} size="large" color="#D06600" />}
+
+
           </View>
+
+
         }
 
         <Tabbar
@@ -181,5 +218,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  restaurantName: {
+    fontSize: 17,
+    color: '#D06600',
+    marginVertical: 7,
+  },
+
 
 });
