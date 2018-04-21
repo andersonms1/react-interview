@@ -1,7 +1,29 @@
 import React from 'react';
-import { Alert, Platform, StyleSheet, Text, View, Image, FlatList, List, ListItem, ActivityIndicator, ImageBackground, ScrollView } from 'react-native';
+import {
+  Alert,
+  AppRegistry,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  FlatList,
+  List,
+  ListItem,
+  ActivityIndicator,
+  ImageBackground,
+  ScrollView,
+  TouchableOpacity,
+  Component,
+  TouchableHighlight,
+  Animated,
+  StatusBar,
+  
+} from 'react-native';
+
 import BrusinhasList from './feed.json';
 import Tabbar from 'react-native-tabbar-bottom'
+import Accordion from 'react-native-collapsible/Accordion';
 
 export default class exampleTabs extends React.Component {
 
@@ -9,7 +31,6 @@ export default class exampleTabs extends React.Component {
     super(props)
 
     this.loader(v => this.setState({ loaded: true }));
-   
 
     this.state = {
       page: "HomeScreen",
@@ -23,15 +44,6 @@ export default class exampleTabs extends React.Component {
       require('./assets/img/stripes.png'),
       require('./assets/img/yellow2.png'),
     ]
-
-    console.log('A')
-    console.log('N')
-    console.log('D')
-
-  }
-
-  loader(cb) {
-    setTimeout(cb, 1500); // 1.5s - simulating server request
   }
 
   photoPicker = (name) => {
@@ -61,6 +73,10 @@ export default class exampleTabs extends React.Component {
 
   }
 
+  loader(cb) {
+    setTimeout(cb, 1500); // 1.5s - simulating server request
+  }
+
   flatListItemSeparator = () => {
     return (
       <View
@@ -79,18 +95,23 @@ export default class exampleTabs extends React.Component {
 
   }
 
+
+
   render() {
+
     return (
+
       <View style={styles.container}>
         {
           // if you are using react-navigation just pass the navigation object in your components like this:
           // {this.state.page === "HomeScreen" && <MyComp navigation={this.props.navigation}>Screen1</MyComp>}
         }
         {this.state.page === "HomeScreen" &&
-          <Text>Hello world!</Text>
 
-
-
+          <View>
+          
+            <Text>Hello world!!!!</Text>
+          </View>
 
         }
 
@@ -98,26 +119,34 @@ export default class exampleTabs extends React.Component {
         {this.state.page === "NotificationScreen" && <Text>Screen3</Text>}
         {this.state.page === "SearchScreen" &&
 
+
           <View style={{ flex: 1 }}>
+
+            <View>
+              <StatusBar barStyle="dark-content" hidden={false} />
+            </View>
+
             {this.state.loaded ? (
+
               <FlatList
-                style={{ marginBottom: 150 }}
+                style={{ borderRadius: 4 }}
                 data={BrusinhasList.shirts}
                 ItemSeparatorComponent={this.FlatListItemSeparator}
                 horizontal={true}
                 keyExtractor={item => item.name}
                 renderItem={({ item }) =>
                   <View>
-                    <Image
-                      style={styles.imagePreview} source={this.photoPicker(item.name)}
-                    />
+
+                    <ImageBackground style={styles.scrollImage} source={this.photoPicker(item.name)}>
+                      <Text style={styles.textImage} onPress={this.GetFlatListItem.bind(this, item.name)}> {item.name} </Text>
+                    </ImageBackground>
                   </View>
                 }
-
-
               />
             ) : <ActivityIndicator style={styles.screenLoader} size="large" color="#D06600" />}
+
           </View>
+
         }
 
         <Tabbar
@@ -149,6 +178,8 @@ export default class exampleTabs extends React.Component {
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -182,4 +213,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  restaurantName: {
+    fontSize: 17,
+    color: '#D06600',
+    marginVertical: 7,
+  },
+
 });
+
+
