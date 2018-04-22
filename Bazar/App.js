@@ -18,12 +18,14 @@ import {
   TouchableHighlight,
   Animated,
   StatusBar,
-  
+
 } from 'react-native';
 
 import BrusinhasList from './feed.json';
 import Tabbar from 'react-native-tabbar-bottom'
+import { Tile, Header } from 'react-native-elements'
 import Accordion from 'react-native-collapsible/Accordion';
+import Expand from 'react-native-simple-expand'
 
 export default class exampleTabs extends React.Component {
 
@@ -34,6 +36,7 @@ export default class exampleTabs extends React.Component {
 
     this.state = {
       page: "HomeScreen",
+
     }
 
     this.images = [
@@ -44,6 +47,12 @@ export default class exampleTabs extends React.Component {
       require('./assets/img/stripes.png'),
       require('./assets/img/yellow2.png'),
     ]
+
+    console.log('Sarting')
+    console.log('\n')
+    console.log('*')
+    console.log('**')
+    console.log('***')
   }
 
   photoPicker = (name) => {
@@ -107,11 +116,30 @@ export default class exampleTabs extends React.Component {
           // {this.state.page === "HomeScreen" && <MyComp navigation={this.props.navigation}>Screen1</MyComp>}
         }
         {this.state.page === "HomeScreen" &&
-
           <View>
-          
-            <Text>Hello world!!!!</Text>
+            <Header
+              leftComponent={{ icon: 'menu', color: '#fff' }}
+              centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+              rightComponent={{ icon: 'home', color: '#fff' }}
+            />
+
+            <Tile
+              imageSrc={{ require: './assets/img/brusinha.png' }}
+              title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores dolore exercitationem"
+              featured
+              caption="Some Caption Text"
+            />
+
+
+
+
+
           </View>
+
+
+
+
+
 
         }
 
@@ -122,13 +150,16 @@ export default class exampleTabs extends React.Component {
 
           <View style={{ flex: 1 }}>
 
-            <View>
-              <StatusBar barStyle="dark-content" hidden={false} />
-            </View>
+            <Header
+              leftComponent={{ icon: 'menu', color: '#fff' }}
+              centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+              rightComponent={{ icon: 'home', color: '#fff' }}
+            />
 
             {this.state.loaded ? (
 
               <FlatList
+
                 style={{ borderRadius: 4 }}
                 data={BrusinhasList.shirts}
                 ItemSeparatorComponent={this.FlatListItemSeparator}
@@ -136,14 +167,39 @@ export default class exampleTabs extends React.Component {
                 keyExtractor={item => item.name}
                 renderItem={({ item }) =>
                   <View>
-
-                    <ImageBackground style={styles.scrollImage} source={this.photoPicker(item.name)}>
-                      <Text style={styles.textImage} onPress={this.GetFlatListItem.bind(this, item.name)}> {item.name} </Text>
-                    </ImageBackground>
+                    <Tile
+                      imageSrc={{ require: './assets/img/brusinha.png' }}
+                      title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores dolore exercitationem"
+                      featured
+                      caption="Some Caption Text"
+                    />
                   </View>
                 }
               />
             ) : <ActivityIndicator style={styles.screenLoader} size="large" color="#D06600" />}
+
+            <TouchableOpacity onPress={() => this.setState({ open: !this.state.open })}>
+              <View style={{ alignItems: 'center' }}>
+                <Image source={require('./assets/img/yellow.png')} />
+              </View>
+            </TouchableOpacity>
+            <Expand value={this.state.open}>
+              <FlatList
+                style={{ borderRadius: 4 }}
+                data={BrusinhasList.shirts}
+                ItemSeparatorComponent={this.FlatListItemSeparator}
+                horizontal={false}
+                keyExtractor={item => item.name}
+                renderItem={({ item }) =>
+                  <View>
+
+                    <ImageBackground style={styles.scrollImage} source={this.photoPicker(item.name)}>
+                      <Text style={styles.scrollImageTile} onPress={this.GetFlatListItem.bind(this, item.name)}> {item.name} </Text>
+                    </ImageBackground>
+                  </View>
+                }
+              />
+            </Expand>
 
           </View>
 
@@ -191,12 +247,26 @@ const styles = StyleSheet.create({
     margin: 5,
   },
 
+  wardrobe: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
   horizontalScroll: {
     height: 100,
   },
 
+  scrollImageTile: {
+    flex: 5,
+    margin: 7,
+    width: 70,//must be seted
+    height: 70,
+  },
+
   scrollImage: {
-    width: 70,
+    flex: 1,
+    width: 70,//must be seted
     height: 70,
     margin: 7,
   },
@@ -213,12 +283,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  restaurantName: {
-    fontSize: 17,
-    color: '#D06600',
-    marginVertical: 7,
-  },
-
+  
 });
 
 
