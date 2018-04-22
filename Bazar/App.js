@@ -90,8 +90,8 @@ export default class exampleTabs extends React.Component {
     return (
       <View
         style={{
-          height: 1,
-          width: "100%",
+          height: 200,
+          width: 200,
           backgroundColor: "#E0E0E0",
         }}
       />
@@ -101,6 +101,8 @@ export default class exampleTabs extends React.Component {
   GetFlatListItem(item_name) {
 
     Alert.alert(item_name);
+    console.log(item_name.name)
+    console.log(item_name.img)
 
   }
 
@@ -160,7 +162,7 @@ export default class exampleTabs extends React.Component {
 
               <FlatList
 
-                style={{ borderRadius: 4 }}
+                style={{ borderRadius: 4,  }}
                 data={BrusinhasList.shirts}
                 ItemSeparatorComponent={this.FlatListItemSeparator}
                 horizontal={true}
@@ -180,21 +182,23 @@ export default class exampleTabs extends React.Component {
 
             <TouchableOpacity onPress={() => this.setState({ open: !this.state.open })}>
               <View style={{ alignItems: 'center' }}>
-                <Image source={require('./assets/img/yellow.png')} />
+                <ImageBackground style={{width: 100, height: 100 }}source={require('./assets/img/yellow.png')}>
+                  <Text style={styles.wardrobe}>Armário</Text>
+                </ImageBackground>
               </View>
             </TouchableOpacity>
-            <Expand value={this.state.open}>
+            <Expand style={styles.expand} value={this.state.open}>
               <FlatList
-                style={{ borderRadius: 4 }}
+                style={{ flex: 1, borderRadius: 2, height: 200, width: 200, }}
                 data={BrusinhasList.shirts}
                 ItemSeparatorComponent={this.FlatListItemSeparator}
-                horizontal={false}
+                horizontal={true}
                 keyExtractor={item => item.name}
                 renderItem={({ item }) =>
-                  <View>
+                  <View style={styles.scrollImage} >
 
-                    <ImageBackground style={styles.scrollImage} source={this.photoPicker(item.name)}>
-                      <Text style={styles.scrollImageTile} onPress={this.GetFlatListItem.bind(this, item.name)}> {item.name} </Text>
+                    <ImageBackground style={{width: 200, height: 200}} source={this.photoPicker(item.name)}>
+                      <Text style={{justifyContent: 'flex-start', alignItems: 'center',}} onPress={this.GetFlatListItem.bind(this, item.name)}> {item.name} </Text>
                     </ImageBackground>
                   </View>
                 }
@@ -241,6 +245,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
+  expand:{
+    minHeight: 400,
+    flexDirection: 'row',
+  },
+
+
   imagePreview: {
     height: 60,
     width: 90,
@@ -248,8 +258,8 @@ const styles = StyleSheet.create({
   },
 
   wardrobe: {
-    flex: 1,
-    justifyContent: 'flex-end',
+    
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
 
@@ -266,9 +276,14 @@ const styles = StyleSheet.create({
 
   scrollImage: {
     flex: 1,
-    width: 70,//must be seted
-    height: 70,
+    width: 200,//must be seted
+    height: 200,
     margin: 7,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+
+
   },
 
   FlatListItemStyle: {
