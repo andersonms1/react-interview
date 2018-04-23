@@ -18,12 +18,13 @@ import {
   TouchableHighlight,
   Animated,
   StatusBar,
-  
+
 } from 'react-native';
 
 import BrusinhasList from './feed.json';
 import Tabbar from 'react-native-tabbar-bottom'
-import Accordion from 'react-native-collapsible/Accordion';
+import { Tile, Header } from 'react-native-elements'
+import Expand from 'react-native-simple-expand'
 
 export default class exampleTabs extends React.Component {
 
@@ -34,6 +35,7 @@ export default class exampleTabs extends React.Component {
 
     this.state = {
       page: "HomeScreen",
+
     }
 
     this.images = [
@@ -44,6 +46,12 @@ export default class exampleTabs extends React.Component {
       require('./assets/img/stripes.png'),
       require('./assets/img/yellow2.png'),
     ]
+
+    console.log('Sarting')
+    console.log('\n')
+    console.log('*')
+    console.log('**')
+    console.log('***')
   }
 
   photoPicker = (name) => {
@@ -81,17 +89,20 @@ export default class exampleTabs extends React.Component {
     return (
       <View
         style={{
-          height: 1,
-          width: "100%",
+          height: 200,
+          width: 200,
           backgroundColor: "#E0E0E0",
         }}
       />
     );
   }
 
+
   GetFlatListItem(item_name) {
 
     Alert.alert(item_name);
+    console.log(item_name);
+    // return require(item_name);
 
   }
 
@@ -107,10 +118,19 @@ export default class exampleTabs extends React.Component {
           // {this.state.page === "HomeScreen" && <MyComp navigation={this.props.navigation}>Screen1</MyComp>}
         }
         {this.state.page === "HomeScreen" &&
-
           <View>
-          
-            <Text>Hello world!!!!</Text>
+            <Header
+              leftComponent={{ icon: 'menu', color: '#fff' }}
+              centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+              rightComponent={{ icon: 'home', color: '#fff' }}
+            />
+
+            <Tile
+              imageSrc={{ require: './assets/img/brusinha.png' }}
+              title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores dolore exercitationem"
+              featured
+              caption="Some Caption Text"
+            />
           </View>
 
         }
@@ -122,28 +142,57 @@ export default class exampleTabs extends React.Component {
 
           <View style={{ flex: 1 }}>
 
-            <View>
-              <StatusBar barStyle="dark-content" hidden={false} />
-            </View>
+            <Header
+              leftComponent={{ icon: 'menu', color: '#fff' }}
+              centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+              rightComponent={{ icon: 'home', color: '#fff' }}
+            />
 
             {this.state.loaded ? (
 
               <FlatList
-                style={{ borderRadius: 4 }}
+
+                style={{ borderRadius: 4, }}
                 data={BrusinhasList.shirts}
                 ItemSeparatorComponent={this.FlatListItemSeparator}
                 horizontal={true}
                 keyExtractor={item => item.name}
                 renderItem={({ item }) =>
                   <View>
-
-                    <ImageBackground style={styles.scrollImage} source={this.photoPicker(item.name)}>
-                      <Text style={styles.textImage} onPress={this.GetFlatListItem.bind(this, item.name)}> {item.name} </Text>
-                    </ImageBackground>
+                    <Tile
+                      imageSrc={require('./assets/img/alien.png')}
+                      title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores dolore exercitationem"
+                      featured
+                      caption="Some Caption Text"
+                    />
                   </View>
                 }
               />
             ) : <ActivityIndicator style={styles.screenLoader} size="large" color="#D06600" />}
+
+            <TouchableOpacity onPress={() => this.setState({ open: !this.state.open })}>
+              <View style={{ alignItems: 'center' }}>
+                <ImageBackground style={{ width: 100, height: 100 }} source={require('./assets/img/yellow.png')}>
+                  <Text style={styles.wardrobe}>Armário</Text>
+                </ImageBackground>
+              </View>
+            </TouchableOpacity>
+            <Expand style={styles.expand} value={this.state.open}>
+              <FlatList
+                style={{ flex: 1, borderRadius: 2, height: 200, width: 200, }}
+                data={BrusinhasList.shirts}
+                ItemSeparatorComponent={this.FlatListItemSeparator}
+                horizontal={true}
+                keyExtractor={item => item.name}
+                renderItem={({ item }) =>
+                  <View style={styles.scrollImage} >
+                    <ImageBackground style={{width: 200, height: 200}} source={this.photoPicker(item.name)}>
+                      <Text style={{justifyContent: 'flex-start', alignItems: 'center',}} onPress={this.GetFlatListItem.bind(this, item.name)}> {item.name} </Text>
+                    </ImageBackground>
+                  </View>
+                }
+              />
+            </Expand>
 
           </View>
 
@@ -185,20 +234,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
+  expand: {
+    minHeight: 400,
+    flexDirection: 'row',
+  },
+
+
   imagePreview: {
     height: 60,
     width: 90,
     margin: 5,
   },
 
+  wardrobe: {
+
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+
   horizontalScroll: {
     height: 100,
   },
 
-  scrollImage: {
-    width: 70,
-    height: 70,
+  scrollImageTile: {
+    flex: 5,
     margin: 7,
+    width: 70,//must be seted
+    height: 70,
+  },
+
+  scrollImage: {
+    flex: 1,
+    width: 200,//must be seted
+    height: 200,
+    margin: 7,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+
+
   },
 
   FlatListItemStyle: {
@@ -213,11 +287,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  restaurantName: {
-    fontSize: 17,
-    color: '#D06600',
-    marginVertical: 7,
-  },
 
 });
 
