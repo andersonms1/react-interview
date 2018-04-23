@@ -11,6 +11,11 @@ Navegue até a pasta correta (Bazar).
 ```shell
 cd react-interview/Bazar
 ```
+Instale o pacote create-react-native-app.
+```shell
+npm install create-react-native-app
+
+```
 Instale o pacote react-native
 ```shell
 npm install react-native
