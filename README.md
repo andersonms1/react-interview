@@ -22,9 +22,13 @@ Instale o pacote create-react-native-app.
 npm install create-react-native-app
 
 ```
-Instale o pacote react-native
+Instale o pacote react-native.
 ```shell
 npm install react-native
+```
+Use o seguinte comando.
+```shell
+react-native start
 ```
 Rode a aplicação. Usar o **yarn** para isso !
 ```shell
