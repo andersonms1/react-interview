@@ -24,7 +24,6 @@ import {
 import BrusinhasList from './feed.json';
 import Tabbar from 'react-native-tabbar-bottom'
 import { Tile, Header } from 'react-native-elements'
-import Accordion from 'react-native-collapsible/Accordion';
 import Expand from 'react-native-simple-expand'
 
 export default class exampleTabs extends React.Component {
@@ -98,11 +97,12 @@ export default class exampleTabs extends React.Component {
     );
   }
 
+
   GetFlatListItem(item_name) {
 
     Alert.alert(item_name);
-    console.log(item_name.name)
-    console.log(item_name.img)
+    console.log(item_name);
+    // return require(item_name);
 
   }
 
@@ -131,17 +131,7 @@ export default class exampleTabs extends React.Component {
               featured
               caption="Some Caption Text"
             />
-
-
-
-
-
           </View>
-
-
-
-
-
 
         }
 
@@ -162,7 +152,7 @@ export default class exampleTabs extends React.Component {
 
               <FlatList
 
-                style={{ borderRadius: 4,  }}
+                style={{ borderRadius: 4, }}
                 data={BrusinhasList.shirts}
                 ItemSeparatorComponent={this.FlatListItemSeparator}
                 horizontal={true}
@@ -170,7 +160,7 @@ export default class exampleTabs extends React.Component {
                 renderItem={({ item }) =>
                   <View>
                     <Tile
-                      imageSrc={{ require: './assets/img/brusinha.png' }}
+                      imageSrc={require('./assets/img/alien.png')}
                       title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores dolore exercitationem"
                       featured
                       caption="Some Caption Text"
@@ -182,7 +172,7 @@ export default class exampleTabs extends React.Component {
 
             <TouchableOpacity onPress={() => this.setState({ open: !this.state.open })}>
               <View style={{ alignItems: 'center' }}>
-                <ImageBackground style={{width: 100, height: 100 }}source={require('./assets/img/yellow.png')}>
+                <ImageBackground style={{ width: 100, height: 100 }} source={require('./assets/img/yellow.png')}>
                   <Text style={styles.wardrobe}>Armário</Text>
                 </ImageBackground>
               </View>
@@ -196,7 +186,6 @@ export default class exampleTabs extends React.Component {
                 keyExtractor={item => item.name}
                 renderItem={({ item }) =>
                   <View style={styles.scrollImage} >
-
                     <ImageBackground style={{width: 200, height: 200}} source={this.photoPicker(item.name)}>
                       <Text style={{justifyContent: 'flex-start', alignItems: 'center',}} onPress={this.GetFlatListItem.bind(this, item.name)}> {item.name} </Text>
                     </ImageBackground>
@@ -245,7 +234,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  expand:{
+  expand: {
     minHeight: 400,
     flexDirection: 'row',
   },
@@ -258,7 +247,7 @@ const styles = StyleSheet.create({
   },
 
   wardrobe: {
-    
+
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
@@ -298,7 +287,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  
+
 });
 
 
