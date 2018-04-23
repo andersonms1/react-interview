@@ -22,7 +22,7 @@ npm install react-native
 ```
 Rode a aplicação. Usar o **yarn** para isso !
 ```shell
- yarn add react-native-tabbar-bottom react-native-elements react-native-simple-expand
+ yarn start
 ```
 
 Tudo certo, agora basta abrir o aplicativo expo no celular que está conectado rede :smile: 
